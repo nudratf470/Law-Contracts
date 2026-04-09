@@ -182,19 +182,77 @@
 <nav>
   <div class="nav-logo" onclick="showPage('home')">
     <div class="logo">
-      <img src="law-website-log.png.jpeg" alt="">
+      <img src="law-web-logo.png" alt="">
     </div>
   </div>
+
   <ul class="nav-links">
     <li><a id="nav-home" class="active-link" onclick="showPage('home')">Home</a></li>
-    <li><a id="nav-contracts" onclick="showPage('contracts')">Commercial Contracts</a></li>
-    <li><a id="nav-corporate" onclick="showPage('corporate')">Corporate Law</a></li>
-    <li><a id="nav-property" onclick="showPage('property')">Commercial Property</a></li>
+
+    <!-- Services Dropdown -->
+    <li class="nav-dropdown">
+      <a id="nav-services" class="dropdown-toggle">
+        Services <span class="arrow">&#9662;</span>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a id="nav-contracts" onclick="showPage('contracts')">
+            <svg width="16" height="16"><use href="#ico-contract"/></svg>
+            Commercial Contracts
+          </a>
+        </li>
+        <li>
+          <a id="nav-corporate" onclick="showPage('corporate')">
+            <svg width="16" height="16"><use href="#ico-building"/></svg>
+            Corporate Law
+          </a>
+        </li>
+        <li>
+          <a id="nav-property" onclick="showPage('property')">
+            <svg width="16" height="16"><use href="#ico-property"/></svg>
+            Commercial Property
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- End Services Dropdown -->
+
     <li><a id="nav-about" onclick="showPage('about')">About Us</a></li>
     <li><a id="nav-contact" onclick="showPage('contact')">Contact Us</a></li>
   </ul>
+
   <span class="nav-cta" onclick="showPage('contact')">Free Consultation</span>
+
+  <!-- Hamburger Button -->
+  <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-nav-menu" id="mobile-menu">
+  <a id="mnav-home" class="active-link" onclick="showPage('home');closeMobileMenu()">Home</a>
+
+  <!-- Mobile Services Accordion -->
+  <a class="mobile-dropdown-toggle" onclick="toggleMobileServices()">
+    Services <span class="mobile-arrow" id="mobile-services-arrow">&#9662;</span>
+  </a>
+  <div class="mobile-submenu" id="mobile-submenu">
+    <a id="mnav-contracts" onclick="showPage('contracts');closeMobileMenu()">
+      <svg width="15" height="15"><use href="#ico-contract"/></svg> Commercial Contracts
+    </a>
+    <a id="mnav-corporate" onclick="showPage('corporate');closeMobileMenu()">
+      <svg width="15" height="15"><use href="#ico-building"/></svg> Corporate Law
+    </a>
+    <a id="mnav-property" onclick="showPage('property');closeMobileMenu()">
+      <svg width="15" height="15"><use href="#ico-property"/></svg> Commercial Property
+    </a>
+  </div>
+
+  <a id="mnav-about" onclick="showPage('about');closeMobileMenu()">About Us</a>
+  <a id="mnav-contact" onclick="showPage('contact');closeMobileMenu()">Contact Us</a>
+  <a class="mobile-cta" onclick="showPage('contact');closeMobileMenu()">Free Consultation</a>
+</div>
 
 
 <!-- ===== HOME ===== -->
@@ -816,19 +874,58 @@
 
 <script>
 const pages = ['home','about','contracts','corporate','property','contact'];
+const servicePages = ['contracts','corporate','property'];
+
 function showPage(id) {
   pages.forEach(p => {
     const el = document.getElementById('page-' + p);
     if(el) el.classList.remove('active');
     const nav = document.getElementById('nav-' + p);
     if(nav) nav.classList.remove('active-link');
+    const mnav = document.getElementById('mnav-' + p);
+    if(mnav) mnav.classList.remove('active-link');
   });
+
   const target = document.getElementById('page-' + id);
   if(target) target.classList.add('active');
+
   const navEl = document.getElementById('nav-' + id);
   if(navEl) navEl.classList.add('active-link');
+  const mnavEl = document.getElementById('mnav-' + id);
+  if(mnavEl) mnavEl.classList.add('active-link');
+
+  // Highlight parent Services tab when a service sub-page is active
+  const servicesTab = document.getElementById('nav-services');
+  if(servicesTab) {
+    if(servicePages.includes(id)) {
+      servicesTab.classList.add('active-link');
+    } else {
+      servicesTab.classList.remove('active-link');
+    }
+  }
+
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const btn = document.getElementById('hamburger-btn');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger-btn').classList.remove('open');
+}
+
+function toggleMobileServices() {
+  const sub = document.getElementById('mobile-submenu');
+  const arrow = document.getElementById('mobile-services-arrow');
+  sub.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
 function submitForm() {
   const first = document.getElementById('f-first').value.trim();
   const last  = document.getElementById('f-last').value.trim();

@@ -98,7 +98,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 100px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -119,12 +119,11 @@ nav {
     display: flex;
     align-items: center;
     padding: 10px;
-
 }
 
 .logo img {
-    width: 150px;
-    height: 70px;
+    width: 300px;
+    height: 90px;
     object-fit: contain;
 }
 
@@ -134,11 +133,12 @@ nav {
 
 .nav-links {
     display: flex;
+    align-items: center;
     gap: 2px;
     list-style: none;
 }
 
-.nav-links a {
+.nav-links > li > a {
     color: rgba(255, 255, 255, 0.8);
     font-size: 14px;
     font-weight: 500;
@@ -146,10 +146,13 @@ nav {
     border-radius: 5px;
     transition: all .2s;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-.nav-links a:hover,
-.nav-links a.active-link {
+.nav-links > li > a:hover,
+.nav-links > li > a.active-link {
     color: #fff;
     background: rgba(255, 255, 255, 0.08);
 }
@@ -163,17 +166,262 @@ nav {
     border-radius: 6px;
     transition: background .2s;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .nav-cta:hover {
     background: var(--gold-dark);
 }
 
+/* ---- SERVICES DROPDOWN ---- */
+.nav-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.dropdown-toggle .arrow {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.5);
+    transition: transform .25s;
+    display: inline-block;
+    margin-left: 2px;
+}
+
+.nav-dropdown:hover .arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    background: var(--navy-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    list-style: none;
+    min-width: 230px;
+    padding: 8px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    z-index: 200;
+}
+
+.nav-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 7px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background .18s, color .18s;
+    cursor: pointer;
+    white-space: nowrap;
+    background: none;
+}
+
+.dropdown-menu li a:hover,
+.dropdown-menu li a.active-link {
+    background: rgba(217, 189, 62, 0.1);
+    color: var(--gold);
+}
+
+.dropdown-menu li a svg {
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+.dropdown-menu li a:hover svg,
+.dropdown-menu li a.active-link svg {
+    opacity: 1;
+}
+
+a#nav-services.active-link {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ---- HAMBURGER ---- */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 8px;
+    z-index: 101;
+}
+
+.hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform .3s, opacity .3s;
+}
+
+.hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ---- MOBILE MENU ---- */
+.mobile-nav-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--navy-dark);
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 16px;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+}
+
+.mobile-nav-menu.open {
+    display: flex;
+}
+
+.mobile-nav-menu > a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 14px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    transition: background .2s, color .2s;
+    display: block;
+}
+
+.mobile-nav-menu > a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.mobile-nav-menu > a.active-link {
+    color: var(--gold);
+}
+
+.mobile-nav-menu .mobile-cta {
+    background: var(--gold);
+    color: var(--navy) !important;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 13px 24px;
+    margin: 12px 16px 4px;
+    border-radius: 6px;
+    text-align: center;
+    border-bottom: none !important;
+    cursor: pointer;
+    display: block;
+}
+
+.mobile-nav-menu .mobile-cta:hover {
+    background: var(--gold-dark) !important;
+}
+
+/* ---- MOBILE SERVICES ACCORDION ---- */
+.mobile-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 14px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.mobile-dropdown-toggle:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.mobile-arrow {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+    transition: transform .25s;
+    display: inline-block;
+}
+
+.mobile-arrow.open {
+    transform: rotate(180deg);
+}
+
+.mobile-submenu {
+    display: none;
+    background: rgba(0, 0, 0, 0.25);
+    flex-direction: column;
+}
+
+.mobile-submenu.open {
+    display: flex;
+}
+
+.mobile-submenu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 24px 12px 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+
+.mobile-submenu a:last-child {
+    border-bottom: none;
+}
+
+.mobile-submenu a:hover,
+.mobile-submenu a.active-link {
+    color: var(--gold);
+    background: rgba(217, 189, 62, 0.06);
+}
+
+.mobile-submenu a svg {
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+.mobile-submenu a:hover svg,
+.mobile-submenu a.active-link svg {
+    opacity: 1;
+}
+
 /* ---- HERO ---- */
 .hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.863), rgba(0, 0, 0, 0.719)),
                     url('law-banner.jpg');
     background-repeat: no-repeat;
+    background-position:bottom;
     background-size: cover;
     background-attachment: fixed;
     padding: 100px 64px;
@@ -249,7 +497,7 @@ nav {
 }
 
 .hero p {
-    color: rgba(255, 255, 255, 0.72);
+    color: white;
     font-size: 17px;
     line-height: 1.75;
     margin-bottom: 40px;
@@ -303,7 +551,7 @@ nav {
 }
 
 .hcard {
-    background: rgba(255, 255, 255, 0.07);
+    background: var(--navy);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 10px;
     padding: 18px 26px;
@@ -319,7 +567,8 @@ nav {
 
 .hcard .l {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.55);
+    font-weight: 500;
+    color: white;
     margin-top: 3px;
 }
 
@@ -1625,7 +1874,28 @@ footer {
         display: none;
     }
 
-    nav,
+    nav {
+        padding: 0 20px;
+        height: 70px;
+    }
+
+    .logo img {
+        width: 180px;
+        height: 60px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-cta {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
     .gold-bar,
     .about-s,
     .services-s,
@@ -1634,15 +1904,6 @@ footer {
     .cta-strip {
         padding-left: 24px;
         padding-right: 24px;
-    }
-
-    nav {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-
-    .nav-links {
-        display: none;
     }
 
     .hero {
@@ -1700,5 +1961,14 @@ footer {
 
     .form-2col {
         grid-template-columns: 1fr;
+    }
+
+    .cta-strip {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .cta-strip h2 {
+        font-size: 26px;
     }
 }
