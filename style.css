@@ -200,22 +200,33 @@ nav {
 }
 
 .dropdown-menu {
-    display: none;
     position: absolute;
-    top: calc(100% + 10px);
+    top: 100%;
     left: 0;
     background: var(--navy-dark);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     list-style: none;
     min-width: 230px;
-    padding: 8px;
+    padding-top: 10px;   /* invisible bridge — no gap */
+    padding-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
     z-index: 200;
+
+    /* THE FIX */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, visibility 0s linear 0.18s;
 }
 
 .nav-dropdown:hover .dropdown-menu {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.18s ease, visibility 0s linear 0s;
 }
 
 .dropdown-menu li a {
